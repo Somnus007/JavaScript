@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			
+			div {
+				width: 666px;
+				margin: 100px auto;
+				box-shadow: 0 0 5px #333;
+				position: relative;
+				height: 393px;
+			}
+			
+			img {
+				width: 666px;
+				position: absolute;
+				opacity: 0;
+				top: 0;
+				left: 0;
+				z-index: -1;
+			}
+			
+			ul {
+				overflow: hidden;
+				margin: 0 auto;
+				width: 220px;
+				position: relative;
+				top: 340px;
+			}
+			
+			ul li {
+				float: left;
+				margin: 10px;
+				width: 20px;
+				height: 20px;
+				border-radius: 50%;
+				background: #E0FFFF;
+				cursor: pointer;
+			}
+			
+			.active {
+				background: orangered;
+			}
+			
+			p {
+				position: absolute;
+				font: 700 80px/100px "";
+				color: #FFFFFF;
+				top: 120px;
+				display: none;
+				cursor: pointer;
+			}
+			
+			#left {
+				left: 15px;
+			}
+			
+			#right {
+				right: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div>
+			<img style="opacity: 1;" src="../img/Akali.jpg" />
+			<img src="../img/Aatrox.jpg" />
+			<img src="../img/Anivia.jpg" />
+			<img src="../img/Brand.jpg" />
+			<img src="../img/LeeSin.jpg" />
+			<ul>
+				<li class="active"></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+			<p id="left">&lt;</p>
+			<p id="right">&gt;</p>
+		</div>
+		<script>
+			var div = document.querySelector("div")
+			var imgs = document.getElementsByTagName("img")
+			var btns = document.getElementsByTagName("li")
+			var lBtn = document.getElementById("left")
+			var rBtn = document.getElementById("right")
+			var n = 0;
+
+			function getstyle(obj, attr) {
+				if(obj.currentStyle) {
+					return obj.currentStyle[attr];
+				} else {
+					return getComputedStyle(obj)[attr];
+				}
+			}
+
+			function move(obj, attr, target) {
+				clearInterval(obj.timer);
+				obj.timer = setInterval(function() {
+					var current = null;
+					current = Math.round(getstyle(obj, attr) * 100);
+					var speed = (target - current) / 5;
+					speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+					if(current == target) {
+						clearInterval(obj.timer);
+					}
+					obj.style.opacity = (current + speed) / 100;
+					obj.style.filter = 'alpha(opacity=' + (current + speed) + ')';
+				}, 30);
+			}
+			div.onmouseover = function() {
+				lBtn.style.display = "block"
+				rBtn.style.display = "block"
+			}
+			div.onmouseout = function() {
+				lBtn.style.display = "none"
+				rBtn.style.display = "none"
+			}
+			for(var i = 0; i < btns.length; i++) {
+				btns[i].index = i
+				btns[i].onclick = function() {
+					n = this.index
+					for(var j = 0; j < btns.length; j++) {
+						move(imgs[j], "opacity", 0)
+						btns[j].removeAttribute("class")
+					}
+					this.setAttribute("class", "active")
+					move(imgs[n], "opacity", 100)
+				}
+			}
+			lBtn.onclick = function() {
+				n--
+				if(n == -1) {
+					n = 4
+				}
+				for(var j = 0; j < btns.length; j++) {
+					move(imgs[j], "opacity", 0)
+					btns[j].removeAttribute("class")
+				}
+				btns[n].setAttribute("class", "active")
+				move(imgs[n], "opacity", 100)
+			}
+			rBtn.onclick = function() {
+				n++
+				if(n == 5) {
+					n = 0
+				}
+				for(var j = 0; j < btns.length; j++) {
+					move(imgs[j], "opacity", 0)
+					btns[j].removeAttribute("class")
+				}
+				btns[n].setAttribute("class", "active")
+				move(imgs[n], "opacity", 100)
+			}
+			setInterval(function(){
+				n++
+				if(n == 5) {
+					n = 0
+				}
+				for(var j = 0; j < btns.length; j++) {
+					move(imgs[j], "opacity", 0)
+					btns[j].removeAttribute("class")
+				}
+				btns[n].setAttribute("class", "active")
+				move(imgs[n], "opacity", 100)
+				
+			},3000)
+		</script>
+	</body>
+
+</html>

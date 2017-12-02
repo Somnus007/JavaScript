@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    
+    ul li {
+        list-style: none;
+    }
+    
+    #main {
+        width: 100%;
+        height: 260px;
+        margin: 40px 10px;
+    }
+    
+    #main ul li {
+        width: 200px;
+        height: 260px;
+        float: left;
+        position: relative;
+    }
+    
+    #main ul li div {
+        width: 100%;
+        height: 260px;
+    }
+    
+    #main ul li div.des {
+        position: absolute;
+        left: 0;
+        top: 0;
+        background: rgba(0, 0, 0, 0.3);
+    }
+    
+    #main ul li div.des h4 {
+        color: #FFF;
+        font-size: 30px;
+        padding: 30px;
+        width: 30px;
+        margin: 0 auto;
+    }
+    </style>
+    <script type="text/javascript" src="../jquery-1.11.3.js"></script>
+</head>
+
+<body>
+    <div id="main">
+        <ul>
+            <li>
+                <div class="des"><h4>阿卡丽</h4></div>
+                <div style="background: url(../img/Akali.jpg) center;background-size: cover;"></div>
+            </li>
+            <li>
+                <div class="des"><h4>艾尼维亚</h4></div>
+                <div style="background: url(../img/Anivia.jpg) center;background-size: cover;"></div>
+            </li>
+            <li>
+                <div class="des"><h4>布里兹</h4></div>
+                <div style="background: url(../img/Blitzcrank_Splash_4.jpg) center;background-size: cover;"></div>
+            </li>
+            <li>
+                <div class="des"><h4>布兰德</h4></div>
+                <div style="background: url(../img/Brand_Splash_0.jpg) center;background-size: cover;"></div>
+            </li>
+            <li>
+                <div class="des"><h4>凯特琳</h4></div>
+                <div style="background: url(../img/Caitlyn_Splash_4.jpg) center;background-size: cover;"></div>
+            </li>
+            <li>
+                <div class="des"><h4>李青</h4></div>
+                <div style="background: url(../img/LeeSin.jpg) center;background-size: cover;"></div>
+            </li>
+        </ul>
+    </div>
+    
+    <script type="text/javascript">
+   		$('#main li').hover(function(){
+   			$(this).stop(true,true).animate({
+   				width:400
+   			}).siblings('li').stop(true,true).animate({
+   				width:160
+   			});
+   			$('.des').eq($(this).index()).hide();
+   		},function(){
+   			$('#main li').stop(true,true).animate({
+   				width:200
+   			},function(){
+   				$('.des').eq($(this).index()).show();
+   			})
+   			
+   		});
+   
+    </script>
+</body>
+
+</html>

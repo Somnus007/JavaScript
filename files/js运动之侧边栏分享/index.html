@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			div {
+				position: absolute;
+				left: -308px;
+				top: 100px;
+				width: 308px;
+				height: 560px;
+			}
+			
+			img {
+				display: block;
+			}
+			
+			p {
+				position: absolute;
+				left: 308px;
+				top: 240px;
+				width: 60px;
+				height: 80px;
+				background: orchid;
+				text-align: center;
+				font: 700 14px/80px "";
+				border: 2px solid orangered;
+				border-radius: 5px;
+				border-left: 0;
+				cursor: pointer;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div>
+			<img src="../img/Sona.jpg" />
+			<p>分享</p>
+		</div>
+		<script>
+			var oP = document.querySelector("p")
+			var oDiv = document.querySelector("div")
+			var timer = 0;
+			var speed = 0;
+			var left = -308;
+			oDiv.onmouseover = function() {
+				clearInterval(timer)
+				timer = setInterval(function() {
+					if(left == 0) {
+						clearInterval(timer)
+					} else {
+						speed = parseFloat((0 - oDiv.offsetLeft) / 10)
+						speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+						left = left + speed
+						oDiv.style.left = left + "px"
+					}
+				}, 30)
+			}
+			oDiv.onmouseout = function() {
+				clearInterval(timer)
+				timer = setInterval(function() {
+					if(left == -308) {
+						clearInterval(timer)
+					} else {
+						speed = parseFloat((-308 - oDiv.offsetLeft) / 10)
+						speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+						left = left + speed
+						oDiv.style.left = left + "px"
+					}
+				}, 30)
+			}
+		</script>
+	</body>
+
+</html>

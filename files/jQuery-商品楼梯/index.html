@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../jquery-1.11.3.js"></script>
+		<style>
+			*{margin: 0;padding: 0;list-style: none;}
+			header{height: 1000px;background: lightpink;text-align: center;font: 700 80px/1000px "";color: #000;}
+			#main{width: 980px;margin: 0 auto;padding-bottom:400px ;}
+			div{height: 600px;text-align: center;font: 700 100px/600px "";color: #fff;}
+			ul{position: fixed;left: 20px;bottom: 60px;border: 1px dashed orchid;border-bottom: 0;display: none;}
+			li{width: 80px;text-align: center;font:700 20px/50px "";border-bottom: 1px dashed orchid;color: #666;cursor:pointer}
+			.active{background: red;}
+		</style>
+	</head>
+	<body>
+		<header>欢迎来到假淘宝网</header>
+		<section id="main">
+			<div class="f1" style="background: red;">ONE</div>
+			<div class="f2" style="background: orange;">TWO</div>
+			<div class="f3" style="background: greenyellow;">THREE</div>
+			<div class="f4" style="background: cyan;">FOUR</div>
+			<div class="f5" style="background: blue;">FIVE</div>
+			<div class="f6" style="background: yellow;">SIX</div>
+			<div class="f7" style="background: pink;">SEVEN</div>
+			<div class="f8" style="background: darkgoldenrod;">EIGHT</div>
+			<div class="f9" style="background: powderblue;">NINE</div>
+			<div class="f10" style="background: purple;">TEN</div>
+		</section>
+		<ul>
+			<li class="active">ONE</li>
+			<li>TWO</li>
+			<li>THREE</li>
+			<li>FOUR</li>
+			<li>FIVE</li>
+			<li>SIX</li>
+			<li>SEVEN</li>
+			<li>EIGHT</li>
+			<li>NINE</li>
+			<li>TEN</li>
+			<li class="back">回到顶部</li>
+		</ul>
+		<script>
+			$(window).scroll(function(){
+				var $scrollTop = $(window).scrollTop()
+				if($scrollTop>=850){
+					$("ul").css("display","block")
+				}else{
+					$("ul").css("display","none")
+				}
+				$("#main div").each(function(){
+					var $top = $("#main div").eq($(this).index()).offset().top+450
+					if($top>$scrollTop){
+						$('li').removeClass('active');
+						$('li').eq($(this).index()).addClass('active');
+						return false;
+					}
+				})
+			})
+			$("li").not(".back").on("click",function(){
+				var $index = $(this).index()
+				var $top = $("#main div").eq($index).offset().top
+				$("html,body").animate({
+					scrollTop:$top
+				},200)
+			})
+			$(".back").on("click",function(){
+				$("html,body").animate({
+					scrollTop:0
+				})
+			})
+		</script>
+	</body>
+</html>

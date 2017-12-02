@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			/**{margin: 0;padding: 0;}*/
+		</style>
+	</head>
+	<body>
+		<button>上</button>
+		<button>下</button>
+		<button>左</button>
+		<button>右</button>
+		<div style="width: 100px;height: 100px;background: orange;position: absolute;left: 100px;top: 100px;"></div>
+		<script>
+			var oBtns = document.getElementsByTagName("button")
+			var div = document.querySelector("div")
+			for(var i=0;i<oBtns.length;i++){
+				oBtns[i].index = i
+				oBtns[i].onclick = function(){
+					if(this.index==0){
+						div.style.top = (div.offsetTop-10)+"px"
+					}else if(this.index==1){
+						div.style.top = (div.offsetTop+10)+"px"
+					}else if(this.index==2){
+						div.style.left = (div.offsetLeft-10)+"px"
+					}else if(this.index==3){
+						div.style.left = (div.offsetLeft+10)+"px"
+					}
+				}
+			}
+		</script>
+	</body>
+</html>

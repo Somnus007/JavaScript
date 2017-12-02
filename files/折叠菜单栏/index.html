@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			div {
+				width: 200px;
+				height: 150px;
+				text-align: center;
+				position: absolute;
+			}
+			
+			#first {
+				left: 0;
+				top: 0;
+				z-index: 20;
+				background: #fff;
+			}
+			
+			.btn {
+				z-index: 21;
+				position: absolute;
+				bottom: 0;
+				right: 0;
+				background: orange;
+				width: 100px;
+				height: 40px;
+				border-radius: 10px;
+				color: #252525;
+				text-align: center;
+				font: 700 14px/40px "";
+				cursor: pointer;
+			}
+			
+			#second {
+				z-index: 10;
+				left: 0;
+				top: 0;
+			}
+			
+			.menu {
+				z-index: 16;
+				position: absolute;
+				bottom: 0;
+				right: 0;
+				background: greenyellow;
+				width: 200px;
+				height: 40px;
+				border-radius: 10px;
+				color: #252525;
+				text-align: center;
+				font: 14px/40px "";
+			}
+			
+			#third {
+				box-sizing: border-box;
+				z-index: 12;
+				left: 0;
+				top: 0;
+				background: orchid;
+				border-radius: 10px;
+				color: #252525;
+				text-align: center;
+				font: 14px/40px "";
+				padding: 10px 0;
+			}
+			
+			#modle {
+				z-index: 14;
+				left: 0;
+				top: 0;
+				background: #fff;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="first">
+			<p class="btn">点击展开 &gt;</p>
+		</div>
+		<div id="second">
+			<div id="modle">
+				<p class="menu">今天的天气情况如下：</p>
+			</div>
+			<div id="third" class="content">白天：多云 夜间：多云转阴<br/>明天：雷阵雨转多云</div>
+		</div>
+
+		<script>
+			var btn = document.getElementsByClassName("btn")[0]
+			var first = document.getElementById("first")
+			var second = document.getElementById("second")
+			var third = document.getElementById("third")
+			var timer = null;
+			var x = parseFloat(getComputedStyle(second)["left"]);
+			var y = parseFloat(getComputedStyle(third)["top"]);
+			var speed;
+			btn.onclick = function() {
+				if(this.innerHTML == "点击展开 &gt;") {
+					clearInterval(timer)
+					timer = setInterval(function() {
+						if(x >= 200) {
+							clearInterval(timer)
+							timer = setInterval(function() {
+								if(y >= 150) {
+									clearInterval(timer)
+								}
+								speed = (150 - y) / 5
+								speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed)
+								y += speed
+								third.style.top = y + "px"
+							}, 30)
+							btn.innerHTML = "点击收起 &gt;"
+						}
+						speed = (200 - x) / 5
+						speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed)
+						x += speed
+						second.style.left = x + "px"
+					}, 30)
+				}else{
+					clearInterval(timer)
+					timer = setInterval(function() {
+						if(y <= 0) {
+							clearInterval(timer)
+							timer = setInterval(function() {
+								if(x <= 0) {
+									clearInterval(timer)
+								}
+								speed = (0 - x) / 5
+								speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed)
+								x += speed
+								second.style.left = x + "px"
+							}, 30)
+							btn.innerHTML = "点击展开 &gt;"
+						}
+						speed = (0 - y) / 5
+						speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed)
+						y += speed
+						third.style.top = y + "px"
+					}, 30)
+				}
+			}
+		</script>
+	</body>
+
+</html>

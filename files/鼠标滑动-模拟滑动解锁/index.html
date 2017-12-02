@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			#phone {
+				width: 320px;
+				height: 480px;
+				border: 10px solid gold;
+				border-radius: 10px;
+				position: relative;
+				margin: 100px auto;
+				overflow: hidden;
+			}
+			
+			#page1 {
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 320px;
+				height: 480px;
+				text-align: center;
+				background: purple;
+			}
+			
+			#page1 h3 {
+				padding-top: 200px;
+			}
+			
+			#page1 b {
+				display: block;
+				width: 240px;
+				height: 50px;
+				background: orange;
+				margin: 100px auto;
+				border-radius: 8px;
+				position: relative;
+			}
+			
+			#page1 b p {
+				width: 60px;
+				height: 50px;
+				background: cyan;
+				border-radius: 8px;
+				position: absolute;
+				left: 0;
+				top: 0;
+			}
+			
+			#page2 {
+				display: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="phone">
+			<div id="page1">
+				<h3>请滑动解锁您的iPhone 8S Plus</h3>
+				<b><p></p></b>
+			</div>
+			<img id="page2" src="../img/w5.jpg" />
+		</div>
+		<script>
+			var phone = document.getElementById("phone")
+			var page1 = document.getElementById("page1")
+			var page2 = document.getElementById("page2")
+			var p = document.querySelector("p")
+			var b = document.querySelector("b")
+			p.onmousedown = function(evt) {
+				var e = evt || event
+				disX = e.offsetX
+				document.onmousemove = function(evt) {
+					var e = evt || event
+					var left = e.clientX - phone.offsetLeft - b.offsetLeft - disX
+					if(left <= 0) {
+						p.style.left = "0px"
+					} else if(left >= 180) {
+						p.style.left = "180px"
+						document.onmouseup = function() {
+							page1.style.display = "none"
+							page2.style.display = "block"
+							document.onmousemove = null
+							document.onmouseup = null
+						}
+
+					} else {
+						p.style.left = left + "px"
+					}
+
+				}
+				document.onmouseup = function() {
+
+					document.onmousemove = null
+					document.onmouseup = null
+				}
+			}
+		</script>
+	</body>
+
+</html>

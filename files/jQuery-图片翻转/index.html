@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title> 
+		<script src="../jquery-1.11.3.js"></script>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			div {
+				width: 300px;
+				height: 180px;
+				float: left;
+				margin: 50px;
+				position: relative;
+				overflow: hidden;
+				cursor: pointer;
+			}
+			img{width: 100%;height: 100%;position: absolute;left: 0;top: 0;}
+			
+			p {
+				position: absolute;
+				left: 0;
+				top: 90px;
+				width: 300px;
+				height: 0;
+				text-align: center;
+				font: 700 60px/180px "";
+				color: #fff;
+				background:orange;
+				overflow: hidden;
+				display: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="p1">
+			<img src="../img/Blitzcrank_Splash_4.jpg" />
+			<p>布里兹</p>
+		</div>
+		<div class="p2">
+			<img src="../img/Brand_Splash_0.jpg" />
+			<p>布兰德</p>
+		</div>
+		<div class="p3">
+			<img src="../img/Caitlyn_Splash_4.jpg" />
+			<p>凯特琳</p>
+		</div>
+		<script>
+			$("div").hover(function(){
+				var $img=$(this).find('img');
+				$img.stop(true,true).animate({
+					top:90,
+					height:0
+				},function(){
+					$img.hide();
+					$img.next().show().stop(true,true).animate({
+						top:0,
+						height:180
+					});
+				});
+			},function(){
+				var $img=$(this).find('img');
+				$img.next().stop(true,true).animate({
+					top:90,
+					height:0
+				},function(){
+					$img.next().hide();
+					$img.show().stop(true,true).animate({
+						top:0,
+						height:180
+					});
+				});
+			});
+		</script>
+	</body>
+
+</html>

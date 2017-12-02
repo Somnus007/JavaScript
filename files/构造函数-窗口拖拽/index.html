@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			#box {
+				width: 300px;
+				position: absolute;
+				left: 200px;
+				top: 200px;
+			}
+			
+			#top {
+				overflow: hidden;
+				background: orange;
+			}
+			
+			h3 {
+				font: 20px/40px "";
+				text-indent: 2em;
+				float: left;
+			}
+			
+			span {
+				float: right;
+				width: 30px;
+				font: 20px/30px "";
+				text-align: center;
+				background: #ADFF2F;
+				margin: 5px 5px 0 0;
+				cursor: pointer;
+			}
+			
+			p {
+				text-align: center;
+				font: 20px/40px "";
+				background: orchid;
+				height: 150px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="box">
+			<div id="top">
+				<h3>请拖我拽我</h3><span>X</span></div>
+			<p>世界那么大，窗口去哪里，我就去哪里~</p>
+		</div>
+		<script>
+			function Move() {
+				this.tt = document.getElementById("top")
+				this.close = document.getElementsByTagName("span")[0]
+				this.box = document.getElementById("box")
+				this.disX=0
+				this.disY=0
+				var that = this
+				this.init = function() {
+					this.tt.onmousedown = function(evt) {
+						var e = evt || event
+						that.disX = e.clientX - that.box.offsetLeft
+						that.disY = e.clientY - that.box.offsetHeight
+						that.movemouse()
+						that.upmouse()
+					}
+					this.closeIt()
+				}
+				this.movemouse = function() {
+					document.onmousemove = function(evt) {
+						var e = evt || event
+						var x = e.clientX - that.disX
+						var y = e.clientY - that.disY
+						if(x <= 0) {
+							x = 0
+						} else if(x >= document.documentElement.clientWidth - that.box.offsetWidth) {
+							x = document.documentElement.clientWidth - that.box.offsetWidth
+						}
+						if(y <= 0) {
+							y = 0
+						} else if(y >= document.documentElement.clientHeight - that.box.offsetHeight) {
+							y = document.documentElement.clientHeight - that.box.offsetHeight
+						}
+						that.box.style.left = x + "px"
+						that.box.style.top = y + "px"
+					}
+				}
+				this.upmouse = function(){
+					document.onmouseup = function(){
+						document.onmousemove = null
+						document.onmouseup = null
+					}
+				}
+				this.closeIt = function(){
+					this.close.onclick = function(){
+						that.box.style.display = "none"
+					}
+				}
+			}
+			new Move().init()
+		</script>
+	</body>
+
+</html>

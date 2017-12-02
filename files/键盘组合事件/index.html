@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			div {
+				width: 200px;
+				height: 200px;
+				box-shadow: 0 0 5px #333;
+				position: absolute;
+				left: 600px;
+				top: 300px;
+				background: orange;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div></div>
+		<script>
+			var div = document.querySelector("div")
+			window.onkeydown = function(evt) {
+				var e = evt || event
+				if(e.ctrlKey && e.keyCode == 67) {
+					div.style.background = "red"
+				} else if(e.ctrlKey && e.shiftKey && e.keyCode == 82) {
+					div.style.background = "orange"
+				} else if(e.keyCode == 37) {
+					if(e.ctrlKey) {
+						div.style.left = (div.offsetLeft - 100) + "px"
+					}
+					div.style.left = (div.offsetLeft - 5) + "px"
+				}else if(e.keyCode == 38) {
+					if(e.ctrlKey) {
+						div.style.top = (div.offsetTop - 100) + "px"
+					}
+					div.style.top = (div.offsetTop - 5) + "px"
+				}else if(e.keyCode == 39) {
+					if(e.ctrlKey) {
+						div.style.left = (div.offsetLeft + 100) + "px"
+					}
+					div.style.left = (div.offsetLeft + 5) + "px"
+				}else if(e.keyCode == 40) {
+					if(e.ctrlKey) {
+						div.style.top = (div.offsetTop + 100) + "px"
+					}
+					div.style.top = (div.offsetTop + 5) + "px"
+				}
+
+			}
+		</script>
+	</body>
+
+</html>

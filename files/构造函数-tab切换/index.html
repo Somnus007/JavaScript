@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{margin: 0;padding: 0;}
+			#box{width: 600px;margin: 100px auto;}
+			#top{overflow: hidden;}
+			p{width: 200px;float: left;font: 700 30px/60px "";text-align: center;cursor: pointer;}
+			#top p:nth-child(1){background: orange;}
+			#top p:nth-child(2){background: cyan;}
+			#top p:nth-child(3){background: purple;}
+			#btm{position: relative;width: 600px;height: 355px;}
+			img{position: absolute;left: 0;top: 0;width: 600px;display: none;}
+			.active{color: #fff;}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<div id="top">
+				<p class="active">LeeSin</p>
+				<p>Akali</p>
+				<p>Brand</p>
+			</div>
+			<div id="btm">
+				<img src="../img/LeeSin.jpg" style="display: block;" />
+				<img src="../img/Akali.jpg" />
+				<img src="../img/Brand.jpg" />
+			</div>
+		</div>
+		<script>
+			function tabSwitch(){
+				this.p = document.getElementsByTagName("p")
+				this.imgs = document.getElementsByTagName("img")
+				this.num = 0
+				var that = this
+				this.init = function(){
+					for(var i=0;i<this.p.length;i++){
+						this.p[i].index = i
+						this.p[i].onclick = function(){
+							that.num = this.index
+							that.hide()
+							that.show()
+						}
+					}
+				}
+				this.hide = function(){
+					for(var i=0;i<this.p.length;i++){
+						this.p[i].removeAttribute("class")
+						this.imgs[i].style.display = "none"
+					}
+				}
+				this.show = function(){
+					this.p[this.num].setAttribute("class","active")
+					this.imgs[this.num].style.display = "block"
+				}
+			}
+			new tabSwitch().init()
+		</script>
+	</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{margin: 0;padding: 0;}
+			.smallP{width: 500px;float: left;margin: 20px;position: relative;}
+			.smallP img{width: 500px;display: block;}
+			.smallF{position: absolute;left: 0;top: 0;width: 150px;height: 150px;background: rgba(0,0,225,0.3);cursor: move;visibility: hidden;}
+			.bigF{width: 600px;height: 600px;float: left;margin-top: 20px;position: relative;overflow: hidden;visibility: hidden;}
+			.bigP{position: absolute;left: 0;top: 0;}
+		</style>
+	</head>
+	<body>
+		<div class="smallP">
+			<img src="../img/Sona1.jpg" />
+			<div class="smallF"></div>
+		</div>
+		<div class="bigF">
+			<img class="bigP" src="../img/Sona1.jpg" />
+		</div>
+		<script>
+			var smallP = document.querySelector(".smallP")
+			var smallF = document.querySelector(".smallF")
+			var bigP = document.querySelector(".bigP")
+			var bigF = document.querySelector(".bigF")
+			bigP.style.width = smallP.offsetWidth*bigF.offsetWidth/smallF.offsetWidth+"px"
+			smallP.onmouseover = function(){
+				smallF.style.visibility = "visible"
+				bigF.style.visibility = "visible"
+				smallP.onmousemove = function(evt){
+					var e = evt || event
+					var x = e.clientX - smallP.offsetLeft-smallF.offsetWidth/2
+					var y = e.clientY - smallP.offsetTop-smallF.offsetHeight/2
+					if(x<=0){
+						x=0
+					}else if(x>=smallP.offsetWidth-smallF.offsetWidth){
+						x=smallP.offsetWidth-smallF.offsetWidth
+					}
+					if(y<=0){
+						y=0
+					}else if(y>=smallP.offsetHeight-smallF.offsetHeight){
+						y=smallP.offsetHeight-smallF.offsetHeight
+					}
+					smallF.style.left = x+"px"
+					smallF.style.top = y+"px"
+					var s = bigF.offsetWidth/smallF.offsetWidth
+					bigP.style.left = -x*s+"px"
+					bigP.style.top = -y*s+"px"
+				}
+			}
+			smallP.onmouseout = function(){
+				smallF.style.visibility = "hidden"
+				bigF.style.visibility = "hidden"
+			}
+		</script>
+	</body>
+</html>

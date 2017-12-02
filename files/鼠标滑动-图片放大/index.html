@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{margin: 0;padding: 0;}
+			div{width: 520px;padding:10px 0 0 10px;margin: 50px auto;overflow: hidden;}
+			div img{display: block;width: 100px;height: 100px;margin: 10px 10px 0 0;float: left;box-sizing: border-box;}
+			div img:first-child{width: 320px;height: 320px;}
+			div img.on{border: 2px dashed orange;}
+		</style>
+	</head>
+	<body>
+		<div>
+			<img src="../img/p1.png" />
+			<img src="../img/p1.png" class="on" />
+			<img src="../img/p2.png" />
+			<img src="../img/p3.png" />
+			<img src="../img/p4.png" />
+			<img src="../img/p5.png" />
+			<img src="../img/p6.png" />
+			<img src="../img/p7.png" />
+			<img src="../img/p8.png" />
+			<img src="../img/p9.png" />
+			<img src="../img/p10.png" />
+			<img src="../img/p11.png" />
+		</div>
+		<script>
+			var pic = document.querySelector("div").firstElementChild
+			var imgs = document.getElementsByTagName("img")
+			for(var i =1;i<imgs.length;i++){
+				imgs[i].onmouseover = function(){
+					for(var i =1;i<imgs.length;i++){
+						imgs[i].removeAttribute("class")
+					}
+					this.setAttribute("class","on")
+					pic.src = this.src
+				}
+			}
+		</script>
+	</body>
+</html>

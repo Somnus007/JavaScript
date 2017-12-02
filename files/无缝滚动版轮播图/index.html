@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{margin: 0;padding: 0;list-style: none;}
+			div{width: 900px;height: 100.3px;margin: 100px auto;box-shadow: 0 0 5px #333;position: relative;overflow: hidden;}
+			ul{overflow: hidden;position: absolute;left: 0;top: 0;}
+			li{float: left;padding:  0 5px;}
+			li img{width: 170px;display: block;}
+			#left{margin-left:500px ;}
+			#right{margin-left:300px ;}
+		</style>
+	</head>
+	<body>
+		<div>
+			<ul>
+				<li><img src="../img/Aatrox.jpg" /></li>
+				<li><img src="../img/Akali.jpg" /></li>
+				<li><img src="../img/Anivia.jpg" /></li>
+				<li><img src="../img/Brand.jpg" /></li>
+				<li><img src="../img/LeeSin.jpg" /></li>
+			</ul>
+		</div>
+		<button id="left">←左滚动</button>
+		<button id="right">右滚动→</button>
+		<script>
+			var div = document.getElementsByTagName("div")[0]
+			var ul = document.getElementsByTagName("ul")[0]
+			var lBtn = document.getElementById("left")
+			var rBtn = document.getElementById("right")
+			ul.innerHTML += ul.innerHTML
+			var lis = document.getElementsByTagName("li")
+			ul.style.width = lis[0].offsetWidth*lis.length+"px"
+			var timer = null;
+			var speed = 2;
+			timer = setInterval(function(){
+				if(ul.offsetLeft>0){
+					ul.style.left = -ul.offsetWidth/2+"px"
+				}else if(ul.offsetLeft<-ul.offsetWidth/2){
+					ul.style.left = 0
+				}
+				ul.style.left = ul.offsetLeft+speed+"px"
+			},20)
+			lBtn.onclick = function(){
+				speed = -2
+			}
+			rBtn.onclick = function(){
+				speed = 2
+			}
+		</script>
+	</body>
+</html>

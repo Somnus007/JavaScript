@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>简易年历</title>
+		<style>
+			div {
+				width: 190px;
+				background: cyan;
+				padding: 10px;
+				margin: 10px auto;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div></div>
+		<script>
+			var div = document.querySelector("div")
+			var ul = document.createElement("ul")
+			ul.style.display = "flex"
+			ul.style.justifyContent = "space-between"
+			ul.style.flexWrap = "wrap"
+			ul.style.padding = 0
+			ul.style.margin = 0
+			div.appendChild(ul)
+			for(var i = 0; i < 12; i++) {
+				var li = document.createElement("li")
+				li.style.width = "50px"
+				li.style.height = "50px"
+				li.style.background = "#888888"
+				li.style.boxSizing = "border-box"
+				li.style.textAlign = "center"
+				li.style.lineHeight = "50px"
+				li.style.fontWeight = "700"
+				li.style.listStyle = "none"
+				li.style.marginBottom = "10px"
+				li.innerHTML = i + 1
+				ul.appendChild(li)
+			}
+			var p = document.createElement("p")
+			p.style.width = "190px"
+			p.style.height = "50px"
+			p.style.background = "pink"
+			p.style.lineHeight = "50px"
+			p.style.textAlign = "center"
+			p.style.fontWeight = "700"
+			p.style.padding = 0
+			p.style.margin = 0
+			div.appendChild(p)
+			var lis = document.getElementsByTagName("li")
+			for(i in lis) {
+				lis[i].onclick = function() {
+					document.querySelector("p").innerHTML = this.innerHTML + "月份好"
+					for(var j=0;j<12;j++){
+						console.log(lis[j]);
+						lis[j].style.background = "#888"
+						lis[j].style.border = 0
+					}
+					this.style.background = "#fff"
+					this.style.border = "1px solid red"
+				}
+			}
+		</script>
+	</body>
+
+</html>

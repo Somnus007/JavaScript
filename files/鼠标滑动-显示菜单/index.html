@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>下拉菜单</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				list-style: none;
+			}
+			
+			div {
+				width: 600px;
+				height: 600px;
+				margin: 50px auto;
+				background: orange;
+				box-sizing: border-box;
+				padding: 50px;
+				text-align: center;
+			}
+			
+			input {
+				border: 0;
+				background: cyan;
+				font: 20px/36px "";
+			}
+			
+			ul {
+				width: 160px;
+				margin-left: 133px;
+				text-align: left;
+				text-indent: 10px;
+				color: #fff;
+				display: none;
+			}
+			
+			ul li {
+				border-bottom: 1px dashed #fff;
+				font: 20px/36px "";
+				background: #252525;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div>
+			<input placeholder="请选择游戏名称" />
+			<ul>
+				<li>英雄联盟</li>
+				<li>魔兽世界</li>
+				<li>大话西游</li>
+				<li>天龙八部</li>
+				<li>九阴真经</li>
+			</ul>
+		</div>
+		<script>
+			var inputs = document.querySelector("input")
+			var ul = document.querySelector("ul")
+			var lis = document.getElementsByTagName("li")
+			inputs.onmouseover = function() {
+				ul.style.display = "block"
+				for(var i = 0; i < lis.length; i++) {
+					lis[i].onmouseover = function() {
+						for(var i = 0; i < lis.length; i++) {
+							lis[i].style.background = "#252525"
+						}
+						this.style.background = "purple"
+					}
+				}
+				for(var i = 0; i < lis.length; i++) {
+					lis[i].onclick = function() {
+						inputs.value = this.innerHTML
+					}
+				}
+				ul.onmouseover = function() {
+					ul.style.display = "block"
+
+				}
+				inputs.onmouseout = function() {
+					ul.style.display = "none"
+				}
+				ul.onmouseout = function() {
+					ul.style.display = "none"
+					for(var i = 0; i < lis.length; i++) {
+						lis[i].style.background = "#252525"
+					}
+				}
+			}
+		</script>
+	</body>
+
+</html>

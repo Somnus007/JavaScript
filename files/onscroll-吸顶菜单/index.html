@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{padding: 0;margin: 0;}
+			div{height: 300px;background: cyan;}
+			p{height: 200px;background: orange;width: 100%;}
+			ul{height: 2000px;background: blueviolet;}
+		</style>
+	</head>
+	<body>
+		<div>hehe</div>
+		<p>menu</p>
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+			<li>6</li>
+		</ul>
+		<script>
+			window.onscroll = function(){
+				var scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+				var p = document.querySelector("p")
+				var ul = document.querySelector("ul")
+				console.log(scrollTop)
+				console.log(p)
+				if(scrollTop>=300){
+					p.style.position = "fixed"
+					p.style.left = "0"
+					p.style.top = "0"
+					ul.style.marginTop = "200px"
+				}else{
+					p.style.position = "static"
+					ul.style.marginTop = "0"
+				}
+			}
+		</script>
+	</body>
+</html>

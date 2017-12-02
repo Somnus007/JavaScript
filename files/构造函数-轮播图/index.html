@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			
+			div {
+				width: 666px;
+				margin: 100px auto;
+				box-shadow: 0 0 5px #333;
+				position: relative;
+				height: 393px;
+			}
+			
+			img {
+				width: 666px;
+				position: absolute;
+				display: none;
+				top: 0;
+				left: 0;
+				z-index: -1;
+			}
+			
+			ul {
+				overflow: hidden;
+				margin: 0 auto;
+				width: 220px;
+				position: relative;
+				top: 340px;
+			}
+			
+			ul li {
+				float: left;
+				margin: 10px;
+				width: 20px;
+				height: 20px;
+				border-radius: 50%;
+				background: #E0FFFF;
+				cursor: pointer;
+			}
+			
+			.active {
+				background: orangered;
+			}
+			
+			p {
+				position: absolute;
+				font: 700 80px/100px "";
+				color: #FFFFFF;
+				top: 120px;
+				display: none;
+				cursor: pointer;
+			}
+			
+			#left {
+				left: 15px;
+			}
+			
+			#right {
+				right: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div>
+			<img style="display: block;" src="../img/Akali.jpg" />
+			<img src="../img/Aatrox.jpg" />
+			<img src="../img/Anivia.jpg" />
+			<img src="../img/Brand.jpg" />
+			<img src="../img/LeeSin.jpg" />
+			<ul>
+				<li class="active"></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+			<p id="left">&lt;</p>
+			<p id="right">&gt;</p>
+		</div>
+		<script src="public.js"></script>
+		<script>
+			function Lunbo() {
+				this.box = document.querySelector("div")
+				this.imgs = document.getElementsByTagName("img")
+				this.btns = document.getElementsByTagName("li")
+				this.lbtn = document.getElementById("left")
+				this.rbtn = document.getElementById("right")
+				this.num = 0
+				this.timer = null
+				var that = this
+				this.startIt = function() {
+					for(var i = 0; i < this.btns.length; i++) {
+						this.btns[i].index = i
+						this.btns[i].onclick = function() {
+							that.num = this.index
+							that.tabswitch()
+						}
+					}
+					this.mouseover()
+					this.mouseout()
+					this.lbtnclick()
+					this.rbtnclick()
+					this.auto()
+					
+				}
+				this.tabswitch = function() {
+					for(var i = 0; i < this.btns.length; i++) {
+						this.btns[i].removeAttribute("class")
+						this.imgs[i].style.display = "none"
+					}
+					this.btns[this.num].setAttribute("class", "active")
+					this.imgs[this.num].style.display = "block"
+				}
+				this.mouseover = function() {
+					this.box.onmouseover = function() {
+						that.lbtn.style.display = "block"
+						that.rbtn.style.display = "block"
+					}
+				}
+				this.mouseout = function() {
+					this.box.onmouseout = function() {
+						that.lbtn.style.display = "none"
+						that.rbtn.style.display = "none"
+					}
+				}
+				this.lbtnclick = function() {
+					this.lbtn.onclick = function() {
+						that.num--
+							if(that.num == -1) {
+								that.num = 4
+							}
+						that.tabswitch()
+					}
+				}
+				this.rbtnclick = function() {
+					this.rbtn.onclick = function() {
+						that.num++
+							if(that.num == 5) {
+								that.num = 0
+							}
+						that.tabswitch()
+					}
+				}
+				this.auto = function(){
+					setInterval(that.rbtn.onclick,2000)
+				}
+
+			}
+			new Lunbo().startIt()
+		</script>
+	</body>
+
+</html>

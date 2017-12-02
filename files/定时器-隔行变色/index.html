@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>隔行变色效果</title>
+		<style>
+			*{margin: 0;padding: 0;}
+			li{list-style: none;text-align: center;height: 30px;line-height: 30px;}
+		</style>
+	</head>
+	<body>
+		<ul id="ul" style="width: 500px;margin: 100px auto;box-shadow: 0 0 5px #333;">
+			<li>Zero</li>
+			<li>Somnus</li>
+			<li>Zero</li>
+			<li>Somnus</li>
+			<li>Zero</li>
+			<li>Somnus</li>
+			<li>Zero</li>
+			<li>Somnus</li>
+			<li>Zero</li>
+		</ul>
+		<button onclick="change()" style="margin-left: 650px;">看我隔行变色</button>
+		<script>
+			function change(){
+				var ul = document.getElementById("ul")
+				var lis = ul.children
+				console.log(lis)
+				var colorArr = ["pink","gold","blue","orange","cyan","purple"]
+				var a = 0 ;
+				var b;
+				setInterval(function(){
+					if(a==5){
+						b = 0;
+					}else if(a==6){
+						a = 0
+						b = a+1
+					}else{
+						b = a+1
+					}
+					for(var i =1;i<=lis.length;i++){
+						if(i%2==0){
+							lis[i-1].style.backgroundColor = colorArr[a]
+						}else{
+							lis[i-1].style.backgroundColor = colorArr[b]
+						}
+					}
+					a= a+1
+				},1000)
+			}
+		</script>
+	</body>
+</html>

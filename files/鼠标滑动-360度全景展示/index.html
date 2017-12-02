@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{margin: 0;padding: 0;}
+			div{width: 640px;box-shadow: 0 0 5px #333;margin: 100px auto;}
+			div img{display: block;}
+			p{height: 150px;background: orange;text-align: center;font: 700 30px/150px "";}
+		</style>
+	</head>
+	<body>
+		<div>
+			<img src="../img/360/39.jpg" />
+			<p>左右滑动看全景</p>
+		</div>
+		<script>
+			var img = document.querySelector("img")
+			var p = document.querySelector("p")
+			p.onmouseover = function(evt){
+				var e = evt ||event
+				var originX = e.clientX
+				var srcValue = 39
+				p.onmousemove = function(evt){
+					var e = evt || event
+					var gapX = e.clientX - originX
+					if(gapX>0){
+						srcValue--
+						if(srcValue<0){
+							srcValue = 76
+						}
+					}else if(gapX<0){
+						srcValue++
+						if(srcValue>76){
+							srcValue = 0
+						}
+					}
+					img.src = "../img/360/"+srcValue+".jpg"
+					originX = e.clientX
+				}
+			}
+			p.onmouseout = function(){
+				img.src = "../img/360/39.jpg"
+			}
+		</script>
+	</body>
+</html>

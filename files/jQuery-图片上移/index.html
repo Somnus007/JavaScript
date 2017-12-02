@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../jquery-1.11.3.js"></script>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			div {
+				width: 300px;
+				height: 180px;
+				float: left;
+				margin: 50px;
+				position: relative;
+				overflow: hidden;
+				cursor: pointer;
+			}
+			
+			.p1 {
+				background: url(../img/Akali.jpg) no-repeat;
+				background-size: cover;
+			}
+			
+			.p2 {
+				background: url(../img/Anivia.jpg) no-repeat;
+				background-size: cover;
+			}
+			
+			.p3 {
+				background: url(../img/LeeSin.jpg) no-repeat;
+				background-size: cover;
+			}
+			
+			p {
+				position: absolute;
+				left: 0;
+				top: 180px;
+				width: 300px;
+				height: 180px;
+				text-align: center;
+				font: 700 60px/180px "";
+				color: #fff;
+				background: rgba(0, 0, 0, 0.5);
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="p1">
+			<p>阿卡丽</p>
+		</div>
+		<div class="p2">
+			<p>艾尼维亚</p>
+		</div>
+		<div class="p3">
+			<p>李青</p>
+		</div>
+		<script>
+			$('div').hover(function() {
+				$(this).find('p').stop(true, true).animate({
+					top: 0
+				}, 500);
+			}, function() {
+				$(this).find('p').stop(true, true).animate({
+					top: 180
+				}, 500);
+			})
+		</script>
+	</body>
+
+</html>

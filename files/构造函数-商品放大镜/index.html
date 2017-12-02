@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{margin: 0;padding: 0;list-style: none;}
+			.smallP{width: 500px;float: left;margin: 20px;position: relative;}
+			.smallP img{width: 500px;display: block;}
+			.smallF{position: absolute;left: 0;top: 0;width: 150px;height: 150px;background: rgba(0,0,225,0.3);cursor: move;visibility: hidden;}
+			.bigF{width: 600px;height: 600px;float: left;margin-top: 20px;position: relative;overflow: hidden;visibility: hidden;}
+			.bigP{position: absolute;left: 0;top: 0;}
+			.box{width: 500px;height: 60px;position: absolute;top: 500px;left: 20px;}
+			p{float: left;width: 50px;font:700 30px/60px "";box-sizing: border-box;border:1px solid #666;text-align: center;}
+			.list{width: 400px;height: 60px;float: left;position: relative;overflow: hidden;}
+			ul{position: absolute;left: 0;top: 4px;width: 1000px;overflow: hidden;}
+			li{float: left;}
+			li img{width: 90px;padding: 0 5px;display: block;cursor: pointer;}
+		</style>
+	</head>
+	<body>
+		<div class="smallP">
+			<img src="../img/Sona1.jpg" />
+			<div class="smallF"></div>
+		</div>
+		<div class="bigF">
+			<img class="bigP" src="../img/Sona1.jpg" />
+		</div>
+		<div class="box">
+			<p id="left" style="color: #999;">&lt;</p>
+			<div class="list">
+				<ul>
+					<li><img src="../img/Sona1.jpg"/></li>
+					<li><img src="../img/Aatrox.jpg"/></li>
+					<li><img src="../img/Akali.jpg"/></li>
+					<li><img src="../img/Brand.jpg"/></li>
+					<li><img src="../img/LeeSin.jpg"/></li>
+					<li><img src="../img/Anivia.jpg"/></li>
+				</ul>
+			</div>
+			<p id="right" style="color: #333;cursor: pointer;">&gt;</p>
+		</div>
+		<script>
+			function Scale(){
+				this.smallP = document.querySelector(".smallP")
+				this.smallPic = this.smallP.getElementsByTagName("img")[0]
+				this.smallF = document.querySelector(".smallF")
+				this.bigP = document.querySelector(".bigP")
+				this.bigF = document.querySelector(".bigF")
+				this.ul = document.querySelector("ul")
+				this.imgs = this.ul.getElementsByTagName("img")
+				this.lbtn = document.getElementById("left")
+				this.rbtn = document.getElementById("right")
+				this.list = document.querySelector(".list")
+				this.timer = null
+				var that = this
+				this.num = 0;
+				this.init = function(){
+					this.bigP.style.width = this.smallP.offsetWidth*this.bigF.offsetWidth/this.smallF.offsetWidth+"px"
+					this.show()
+					this.clickChange()
+					this.lbtn.onclick = function(){
+						that.lbtnClick()
+					}
+					this.rbtn.onclick = function(){
+						that.rbtnClick()
+					}
+				}
+				this.show = function(){
+					this.smallP.onmouseover = function(){
+						that.smallF.style.visibility = "visible"
+						that.bigF.style.visibility = "visible"
+						that.movemouse()
+						that.outmouse()
+					}
+				}
+				this.movemouse = function(){
+					this.smallP.onmousemove = function(ev){
+						var e = ev || event
+						var x = e.clientX - that.smallP.offsetLeft - that.smallF.offsetWidth/2
+						var y = e.clientY - that.smallP.offsetTop - that.smallF.offsetHeight/2
+						var rapport = that.bigF.offsetWidth/that.smallF.offsetWidth
+						if(x<=0){
+							x=0
+						}else if(x>=that.smallP.offsetWidth-that.smallF.offsetWidth){
+							x = that.smallP.offsetWidth-that.smallF.offsetWidth
+						}
+						if(y<=0){
+							y=0
+						}else if(y>=that.smallP.offsetHeight-that.smallF.offsetHeight){
+							y = that.smallP.offsetHeight-that.smallF.offsetHeight
+						}
+						that.smallF.style.left = x + "px"
+						that.smallF.style.top = y + "px"
+						that.bigP.style.left = -x*rapport + "px"
+						that.bigP.style.top = -y*rapport + "px"
+					}
+				}
+				this.outmouse = function(){
+					this.smallP.onmouseout = function(){
+						that.smallF.style.visibility = "hidden"
+						that.bigF.style.visibility = "hidden"
+					}
+				}
+				this.clickChange = function(){
+					for(var i=0;i<this.imgs.length;i++){
+						this.imgs[i].onclick = function(){
+							that.smallPic.src = this.src
+							that.bigP.src = this.src
+						}
+					}
+				}
+				this.tabswitch = function(){
+					clearInterval(this.timer)
+					var start = this.ul.offsetLeft
+					var theEnd = start+this.num*this.imgs[0].offsetWidth
+					if(start==-200&&this.num==-1){
+						theEnd=start
+					}else if(start==0&&this.num==1){
+						theEnd=start
+					}
+					var speed = 0
+					this.timer = setInterval(function(){	
+						speed = (theEnd - that.ul.offsetLeft)/10
+						speed = speed>0?Math.ceil(speed):Math.floor(speed)
+						if(that.ul.offsetLeft == theEnd){
+							if(theEnd==-200){
+								that.rbtn.style.color = "#999"
+								that.rbtn.style.cursor = ""
+							}else if(theEnd==0){
+								that.lbtn.style.color = "#999"
+								that.lbtn.style.cursor = ""
+							}else{
+								that.rbtn.style.color = "#333"
+								that.rbtn.style.cursor = "pointer"
+								that.lbtn.style.color = "#333"
+								that.lbtn.style.cursor = "pointer"
+							}
+							clearInterval(that.timer)
+						}
+						that.ul.style.left = that.ul.offsetLeft+speed+"px"
+					},10)
+					
+				}
+				this.lbtnClick = function(){
+					this.num = 1
+					this.tabswitch()
+				}
+				this.rbtnClick = function(){
+					this.num = -1
+					this.tabswitch()
+				}
+			}
+			new Scale().init()
+		</script>
+	</body>
+</html>

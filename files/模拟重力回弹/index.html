@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			div {
+				width: 100px;
+				height: 100px;
+				border-radius: 50%;
+				background: darkorange;
+				position: absolute;
+				left: 0;
+				top: 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div></div>
+		<script>
+			var div = document.querySelector("div")
+			var timer;
+			var speedX;
+			var speedY;
+			var disX;
+			var disY;
+			var preX;
+			var preY;
+			div.onmousedown = function(evt) {
+				var e = evt || event
+				disX = e.offsetX
+				disY = e.offsetY
+				preX = e.clientX
+				preY = e.clientY
+				document.onmousemove = function(evt) {
+					var e = evt || event
+					var left = e.clientX - disX
+					var top = e.clientY - disY
+					if(left <= 0) {
+						left = 0
+					} else if(left >= document.documentElement.clientWidth - div.offsetWidth) {
+						left = document.documentElement.clientWidth - div.offsetWidth
+					}
+					if(top <= 0) {
+						top = 0
+					} else if(top >= document.documentElement.clientHeight - div.offsetHeight) {
+						top = document.documentElement.clientHeight - div.offsetHeight
+					}
+					div.style.left = left + "px"
+					div.style.top = top + "px"
+					speedX = e.clientX - preX
+					speedY = e.clientY = preY
+					preX = e.clientX
+					preY = e.clientY
+				}
+				document.onmouseup = function(){
+					document.onmousemove = null
+					document.onmouseup = null
+					move()
+				}
+			}
+
+			function move() {
+				clearInterval(timer)
+				timer = setInterval(function() {
+					speedY += 4
+					speedX *= 0.99
+					var x = div.offsetLeft + speedX
+					var y = div.offsetTop + speedY
+					if(x <= 0) {
+						x = 0
+						speedX = -speedX
+					} else if(x >= document.documentElement.clientWidth - div.offsetWidth) {
+						x = document.documentElement.clientWidth - div.offsetWidth
+						speedX = -speedX
+					}
+					if(y <= 0) {
+						y = 0
+						speedY = -speedY
+					} else if(y >= document.documentElement.clientHeight - div.offsetHeight) {
+						y = document.documentElement.clientHeight - div.offsetHeight
+						speedY = -0.9 * speedY
+					}
+					if(Math.abs(speedX) < 1) {
+						speedX = 0
+					}
+					if(Math.abs(speedY) < 1) {
+						speedY = 0
+					}
+					if(speedX == 0 && speedY == 0 && y == document.documentElement.clientHeight - div.offsetHeight) {
+						clearInterval(timer)
+					}
+					div.style.left = x + "px"
+					div.style.top = y + "px"
+				}, 30)
+			}
+		</script>
+	</body>
+
+</html>

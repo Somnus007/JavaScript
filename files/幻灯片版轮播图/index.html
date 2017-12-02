@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			
+			div {
+				width: 666px;
+				margin: 100px auto;
+				box-shadow: 0 0 5px #333;
+				position: relative;
+				height: 393px;
+				overflow: hidden;
+			}
+			
+			ul {
+				position: absolute;
+				top: 0;
+				left: 0;
+				overflow: hidden;
+			}
+			
+			ul li {
+				float: left;
+			}
+			
+			img {
+				width: 666px;
+				display: block;
+				z-index: -1;
+			}
+			
+			ol {
+				overflow: hidden;
+				margin: 0 auto;
+				width: 220px;
+				position: relative;
+				top: 340px;
+			}
+			
+			ol li {
+				float: left;
+				margin: 10px;
+				width: 20px;
+				height: 20px;
+				border-radius: 50%;
+				background: #E0FFFF;
+				cursor: pointer;
+			}
+			
+			.active {
+				background: orangered;
+			}
+			
+			p {
+				position: absolute;
+				font: 700 80px/100px "";
+				color: #FFFFFF;
+				top: 120px;
+				display: none;
+				cursor: pointer;
+			}
+			
+			#left {
+				left: 15px;
+			}
+			
+			#right {
+				right: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div>
+			<ul>
+				<li><img src="../img/Akali.jpg" /></li>
+				<li><img src="../img/Aatrox.jpg" /></li>
+				<li><img src="../img/Anivia.jpg" /></li>
+				<li><img src="../img/Brand.jpg" /></li>
+				<li><img src="../img/LeeSin.jpg" /></li>
+			</ul>
+			<ol>
+				<li class="active"></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ol>
+			<p id="left">&lt;</p>
+			<p id="right">&gt;</p>
+		</div>
+		<script>
+			var div = document.querySelector("div")
+			var ul = document.querySelector("ul")
+			var first = ul.firstElementChild.cloneNode(true)
+			var last = ul.lastElementChild.cloneNode(true)
+			ul.insertBefore(last, ul.firstElementChild)
+			ul.appendChild(first)
+			var lis = ul.getElementsByTagName("li")
+			var perWidth = lis[0].offsetWidth
+			ul.style.width = perWidth * lis.length + "px"
+			ul.style.left = -perWidth + "px"
+			var btns = document.querySelector("ol").getElementsByTagName("li")
+			var lBtn = document.getElementById("left")
+			var rBtn = document.getElementById("right")
+			var n = 0;
+			var timer = null;
+			div.onmouseover = function() {
+				lBtn.style.display = "block"
+				rBtn.style.display = "block"
+			}
+			div.onmouseout = function() {
+				lBtn.style.display = "none"
+				rBtn.style.display = "none"
+			}
+			for(var i = 0; i < btns.length; i++) {
+				btns[i].index = i
+				btns[i].onclick = function() {
+					n = this.index
+					var target = -perWidth * (n + 1)
+					clearInterval(timer)
+					for(var j = 0; j < btns.length; j++) {
+						btns[j].removeAttribute("class")
+					}
+					this.className = "active"
+					timer = setInterval(function() {
+						var speed = (target - ul.offsetLeft) / 10
+						speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed)
+						if(ul.offsetLeft == target) {
+							clearInterval(timer)
+						}
+						ul.style.left = ul.offsetLeft + speed + "px"
+					}, 30)
+				}
+			}
+			lBtn.onclick = function() {
+				n--
+				if(n == -1) {
+					ul.style.left = -perWidth * (lis.length - 1) + "px"
+					n = 4
+				}
+				for(var j = 0; j < btns.length; j++) {
+					btns[j].removeAttribute("class")
+				}
+				btns[n].className = "active"
+				var target = -perWidth * (n + 1)
+				clearInterval(timer)
+				timer = setInterval(function() {
+					var speed = (target - ul.offsetLeft) / 10
+					speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed)
+					if(ul.offsetLeft == target) {
+						clearInterval(timer)
+					}
+					ul.style.left = ul.offsetLeft + speed + "px"
+				}, 30)
+			}
+			rBtn.onclick = function() {
+				n++
+				if(n == btns.length) {
+					ul.style.left =0
+					n = 0
+				}
+				for(var j = 0; j < btns.length; j++) {
+					btns[j].removeAttribute("class")
+				}
+				btns[n].className = "active"
+				var target = -perWidth * (n + 1)
+				clearInterval(timer)
+				timer = setInterval(function() {
+					var speed = (target - ul.offsetLeft) / 10
+					speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed)
+					if(ul.offsetLeft == target) {
+						clearInterval(timer)
+					}
+					ul.style.left = ul.offsetLeft + speed + "px"
+				}, 30)
+			}
+			setInterval(function(){
+				n++
+				if(n == btns.length) {
+					ul.style.left =0
+					n = 0
+				}
+				for(var j = 0; j < btns.length; j++) {
+					btns[j].removeAttribute("class")
+				}
+				btns[n].className = "active"
+				var target = -perWidth * (n + 1)
+				clearInterval(timer)
+				timer = setInterval(function() {
+					var speed = (target - ul.offsetLeft) / 10
+					speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed)
+					if(ul.offsetLeft == target) {
+						clearInterval(timer)
+					}
+					ul.style.left = ul.offsetLeft + speed + "px"
+				}, 30)
+			},3000)
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div style="margin: 100px;">
+			ID:<input />
+			姓名：<input />
+			电话：<input />
+			<button onclick="save()">保存</button>
+		</div>
+		<table border="1" cellpadding="10" style="margin-left:150px;" id="table">
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Tel</th>
+				<th>操作</th>
+			</tr>
+		</table>
+		<script>
+			function save(){
+				var table = document.getElementById("table")
+				var newBody = document.createElement("tr")
+				var newID = document.createElement("th")
+				var newIDText = document.createTextNode(document.getElementsByTagName("input")[0].value)
+				newID.appendChild(newIDText)
+				newBody.appendChild(newID)
+				var newName = document.createElement("th")
+				var newNameText = document.createTextNode(document.getElementsByTagName("input")[1].value)
+				newName.appendChild(newNameText)
+				newBody.appendChild(newName)
+				var newTel = document.createElement("th")
+				var newTelText = document.createTextNode(document.getElementsByTagName("input")[2].value)
+				newTel.appendChild(newTelText)
+				newBody.appendChild(newTel)
+				var del = document.createElement("th")
+				var delText = document.createTextNode("删除")
+				del.appendChild(delText)
+				del.style.textDecoration = "underline"
+				del.style.color = "blue"
+				del.style.cursor = "pointer"
+				newBody.appendChild(del)
+				table.appendChild(newBody)
+				del.onclick = function(){
+					this.parentNode.parentNode.removeChild(this.parentNode)
+				}
+			}
+		</script>
+	</body>
+</html>
